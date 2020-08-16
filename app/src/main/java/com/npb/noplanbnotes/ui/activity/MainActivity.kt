@@ -30,18 +30,18 @@ class MainActivity : AppCompatActivity() {
         initButtons()
     }
 
-    fun initRecyclerView () {
+    private fun initRecyclerView () {
         binding.notesRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
         displayNotesList()
     }
 
-    fun displayNotesList() {
+    private fun displayNotesList() {
         notesViewModel.getAllNotes().observe(this, Observer {
             binding.notesRecyclerView.adapter = NotesRecyclerViewAdapter(it, {selectedNote-> notesItemClicked(selectedNote) })
         })
     }
 
-    fun initButtons () {
+    private fun initButtons () {
         binding.apply {
             btnAdd.setOnClickListener {
                 notesViewModel.insertNote(
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    fun notesItemClicked(seletedNote: Note) {
+    private fun notesItemClicked(seletedNote: Note) {
         Toast.makeText(this@MainActivity, "Edit : " + seletedNote.notesText, Toast.LENGTH_SHORT)
             .show()
     }

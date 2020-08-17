@@ -28,7 +28,7 @@
                 android:isScrollContainer="true"
                 android:textAlignment="textStart"
                 android:gravity="start"
-                android:lines="1"
+                android:lines="3"
                 android:scrollbars="vertical"
                 android:singleLine="false"
                 android:text="@={notesViewModel.notesText}"

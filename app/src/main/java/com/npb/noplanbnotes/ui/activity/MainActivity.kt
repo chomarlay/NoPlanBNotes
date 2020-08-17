@@ -22,12 +22,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         val database = NoteDatabase.getInstance(this)
         val repository = NotesRepository(database)
         val notesViewModelFactory = NotesViewModelFactory(repository)
         notesViewModel = ViewModelProvider(this, notesViewModelFactory).get(NotesViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.notesViewModel = notesViewModel
         initRecyclerView()
-        initButtons()
+//        initButtons()
     }
 
     private fun initRecyclerView () {
@@ -41,21 +44,19 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun initButtons () {
-        binding.apply {
-            btnAdd.setOnClickListener {
-                notesViewModel.insertNote(
-                    Note(0, "EFFORT")
-                )
-            }
-            btnDeleteAll.setOnClickListener {
-                notesViewModel.deleteAllNotes()
-            }
-        }
+//    private fun initButtons () {
+//        binding.apply {
+//            btnAddOrUpdate.setOnClickListener {
+//                notesViewModel!!.addOrUpdate()
+//            }
+//            btnDeleteOrClearAll.setOnClickListener {
+//                notesViewModel!!.deleteAllNotes()
+//            }
+//        }
+//    }
 
-    }
     private fun notesItemClicked(seletedNote: Note) {
-        Toast.makeText(this@MainActivity, "Edit : " + seletedNote.notesText, Toast.LENGTH_SHORT)
+        Toast.makeText(this@MainActivity, "Edit : ${seletedNote.notesText}", Toast.LENGTH_SHORT)
             .show()
     }
 

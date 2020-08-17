@@ -2,42 +2,74 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="notesViewModel"
+            type="com.npb.noplanbnotes.ui.viewmodel.NotesViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.activity.MainActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notes_recycler_view"
+        <LinearLayout
+            android:id="@+id/linearLayoutInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
 
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/et_Notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:lines="1"
+                android:scrollbars="vertical"
+                android:singleLine="false"
+                android:text="@={notesViewModel.notesText}"
+                android:hint="Enter Notes"
 
-            android:layout_marginStart="113dp"
-            android:layout_marginLeft="113dp"
-            android:text="ADD"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/notes_recycler_view" />
+                 />
 
-        <Button
-            android:id="@+id/btnDeleteAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            android:text="CLEAR ALL"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.822"
-            app:layout_constraintStart_toEndOf="@+id/btnAdd" />
+                <Button
+                    android:id="@+id/btnAddOrUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="@{()->notesViewModel.addOrUpdate()}"
+                    android:text="@={notesViewModel.addOrUpdateButtonText}" />
+
+                <Button
+                    android:id="@+id/btnDeleteOrClearAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="@{()->notesViewModel.deleteAllNotes()}"
+                    android:text="@={notesViewModel.deleteOrClearAllButtonText}" />
+                >
+            </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notes_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
